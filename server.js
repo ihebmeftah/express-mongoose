@@ -1,12 +1,11 @@
 require('dotenv').config();
-require('./config/database');
 
 const express = require('express');
 const morgan = require('morgan');
 const categoryroute = require('./routes/category_routes');
 const ApiError = require('./utils/apiError');
 const globalError = require('./middlewares/errorMiddleware');
-
+const dbConnection = require('./config/database');
 //connet to db
 dbConnection();
 
