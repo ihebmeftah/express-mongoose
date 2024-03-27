@@ -4,11 +4,13 @@ const { getOneCategoryValidator, deleteCategoryValidator, updateCategoryValidato
 
 const router = express.Router();
 
-router.route('/').post(createCategoryValidator, addCategory)
-    .get(getCategories)
-router.route('/:id')
-    .get(getOneCategoryValidator, getOneCategory)
-    .delete(deleteCategoryValidator, deleteCategory)
-    .put(updateCategoryValidator, updateCategory);
+router.route('/')
+	.post(createCategoryValidator, addCategory)
+	.get(getCategories);
 
-module.exports = router
+router.route('/:id')
+	.get(getOneCategoryValidator, getOneCategory)
+	.delete(deleteCategoryValidator, deleteCategory)
+	.put(updateCategoryValidator, updateCategory);
+
+module.exports = router;

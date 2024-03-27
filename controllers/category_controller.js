@@ -1,6 +1,6 @@
 const expressAsyncHandler = require('express-async-handler');
-const category = require('../models/category');
 const slugift = require('slugify');
+const category = require('../models/category');
 const ApiError = require('../utils/apiError');
 
 exports.addCategory = expressAsyncHandler(async (req, res, next) => {
