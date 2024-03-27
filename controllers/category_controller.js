@@ -1,9 +1,9 @@
 const expressAsyncHandler = require('express-async-handler');
-const slugift = require('slugify');
 const category = require('../models/category');
+const slugift = require('slugify');
 const ApiError = require('../utils/apiError');
 
-exports.addCategory = expressAsyncHandler(async (req, res, next) => {
+exports.addCategory = expressAsyncHandler(async (req, res) => {
     const { name } = req.body;
     const data = await category.create({
         name,
@@ -12,7 +12,7 @@ exports.addCategory = expressAsyncHandler(async (req, res, next) => {
     res.status(201).json(data);
 })
 
-exports.getCategories = expressAsyncHandler(async (req, res, next) => {
+exports.getCategories = expressAsyncHandler(async (req, res) => {
     const page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
     const skip = (page - 1) * limit;
