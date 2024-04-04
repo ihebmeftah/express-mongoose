@@ -47,7 +47,6 @@ exports.updateCategory = expressAsyncHandler(async (req, res, next) => {
     const { id } = req.params;
     const { name } = req.body;
     const data = await category.findByIdAndUpdate(id, { name }, { new: true })
-    console.log(data);
     if (!data) {
         return next(new ApiError('Category not found', 404))
     }
