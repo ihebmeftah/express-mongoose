@@ -29,8 +29,9 @@ exports.getSubCategory = expressAsyncHandler(async (req, res) => {
     const page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
     const skip = (page - 1) * limit;
+    const categoryId = req.params.categoryId;
     if (!page && !limit) {
-        const data = await SubCategory.find()
+        const data = await SubCategory.find({category : categoryId})
         res.status(200).json(data)
     } else {
         const data = await SubCategory.find().skip(skip).limit(limit)
