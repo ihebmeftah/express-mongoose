@@ -7,10 +7,6 @@ const CategorySchema = new mongoose.Schema(
 			required: [true, 'Please provide cate gory name'],
 			unique: [true, 'Category name already exists'],
 		},
-		slug: {
-			type: String,
-			lowercase: true,
-		},
 		image: {
 			type: String,
 		}

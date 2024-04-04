@@ -1,13 +1,11 @@
 const expressAsyncHandler = require('express-async-handler');
 const category = require('../models/category');
-const slugift = require('slugify');
 const ApiError = require('../utils/apiError');
 
 exports.addCategory = expressAsyncHandler(async (req, res) => {
     const { name } = req.body;
     const data = await category.create({
         name,
-        slug: slugift(name),
     });
     res.status(201).json(data);
 })
@@ -48,7 +46,7 @@ exports.deleteCategory = expressAsyncHandler(async (req, res, next) => {
 exports.updateCategory = expressAsyncHandler(async (req, res, next) => {
     const { id } = req.params;
     const { name } = req.body;
-    const data = await category.findByIdAndUpdate(id, { name, slug: slugift(name)}, { new: true })
+    const data = await category.findByIdAndUpdate(id, { name }, { new: true })
     console.log(data);
     if (!data) {
         return next(new ApiError('Category not found', 404))
