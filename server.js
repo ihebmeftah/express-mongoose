@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const categoryroute = require('./routes/category_routes');
+const subcategoryroute = require('./routes/subcategory_routes');
 const ApiError = require('./utils/apiError');
 const globalError = require('./middlewares/errorMiddleware');
 const dbConnection = require('./config/database');
@@ -16,7 +17,8 @@ const app = express();
 app.use(express.json());
 
 // routes
-app.use('/api/v1/categories', categoryroute);
+app.use('/api/v1/category', categoryroute);
+app.use('/api/v1/subcategory', subcategoryroute);
 app.all('*', (req, res, next) => {
 	next(new ApiError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
