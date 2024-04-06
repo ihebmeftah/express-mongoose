@@ -3,6 +3,13 @@ const Category = require('../models/category');
 const ApiError = require('../utils/apiError');
 const SubCategory = require('../models/subcategory');
 
+
+exports.setCategoryToBodySubCategory = (req, res, next) => {
+    if (!req.body.category) req.body.category = req.params.categoryId // nested route
+    next()
+    
+}
+
 exports.addSubCategory = expressAsyncHandler(async (req, res, next) => {
     const { name, category } = req.body;
     const existCategory = await Category.findById(category);
@@ -25,13 +32,19 @@ exports.getOneSubCategory = expressAsyncHandler(async (req, res, next) => {
     res.status(200).json(data)
 })
 
+exports.addFilterObject = (req, res, next) => {
+    let filter = {};
+    if (req.params.categoryId) filter = { category: req.params.categoryId } // nested route
+    req.filter = filter
+    next()
+    
+}
 exports.getSubCategory = expressAsyncHandler(async (req, res) => {
     const page = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
     const skip = (page - 1) * limit;
-    const categoryId = req.params.categoryId;
     if (!page && !limit) {
-        const data = await SubCategory.find({category : categoryId})
+        const data = await SubCategory.find(req.filter)
         res.status(200).json(data)
     } else {
         const data = await SubCategory.find().skip(skip).limit(limit)
